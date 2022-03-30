@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Score</title>
+    <style>
+        .container{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+        }
+        button{
+            background-color: rgb(191, 236, 191);
+            padding: 10px 15px;
+            border: rgb(191, 236, 191);
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        input{
+            height: 35px;
+        }
+        .red{
+            background-color: rgb(228, 118, 118);
+            color: white;
+        }
+        .scorecontainer{
+            font-size: 24px;
+            background-color: antiquewhite;
+        }
+        #team1, #team2 {
+            text-transform: capitalize;
+        }
+        #tournamentname{
+            font-size: 30px;
+            text-transform: capitalize;
+            font-weight: 600;
+        }
+        #tournamentlocation{
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+        #breakingnews{
+            text-transform: capitalize;
+        }
+        .title{
+            background-color: rgb(65, 54, 219);
+            color: azure;
+        }
+    </style>
+</head>
+<body>
+    <div class="container title">
+        <p id="tournamentname">tournament name</p>
+        <p id="tournamentlocation">location</p>
+    </div>
+    <p><marquee id="breakingnews" width="80%" direction="left" height="50px" scrollamount="10">
+        breaking news
+        </marquee></p>
+        
+    <div class="container scorecontainer">
+        <div class="container">
+            <p><span id="totalrun">0 </span>/<span id="totalwicket"> 0 </span>&nbsp;<span id="team1">  Team1</span></p>
+
+            <p> &nbsp;vs &nbsp;</p>
+            <p><span id="team2">Team2 </span> &nbsp; <span id="totalover"> 0</span>.<span id="totalball"> 0 </span></p>
+
+        </div>
+    </div>
+
+    <p> Runrate: <span id="runrate">0</span></p>
+
+    
+    <div class="container scorecontainer">
+        <div class="batsmanstat">
+            <P>David Warner <span> * </span><span>23 (12) </span></P>
+            <P>Steve Smith <span>23 (12) </span></P>
+        </div>
+        <div class="bowllerstat">
+            <P>Sandip lamichane <span>3.2-1-0-12 </span></P>
+            <P>Mitchel Starch <span>4-2-0-22 </span></P>
+        </div>
+        
+    </div>
+    
+    <hr><hr>
+   
+    <h4>Admin:</h4>
+   <div class="container">
+    <button onClick="runCalc(1,1)">1</button>
+    <button onClick="runCalc(2,1)">2</button>
+    <button onClick="runCalc(3,1)">3</button>
+    <button onClick="runCalc(4,1)">4</button>
+    <button onClick="runCalc(6,1)">6</button>
+    <button onClick="runCalc(0,1)">Dot ball</button>
+   </div>
+<hr>
+<div class="container">
+    <button onClick="runCalc(1,0)">Wide</button>
+<button onClick="runCalc(1,0)">NoBall</button>
+</div>
+<hr>
+<h5>Extra Run without wide and noball.</h5>
+<div class="container">
+    <button onClick="runCalc(1,0)">1</button>
+<button onClick="runCalc(2,0)">2</button>
+    <button onClick="runCalc(3,0)">3</button>
+    <button onClick="runCalc(4,0)">4</button>
+    <button onClick="runCalc(6,0)">6</button>
+</div>
+<hr>
+<div class="container">
+    <button class="red" onclick="totalWicket()">Wicket</button>
+</div>
+
+<h5>Inputs:</h5>
+<input id="inputtournamentname" type="text" placeholder="tournament name "/>
+<input id="inputtournamentlocation" type="text" placeholder="tournament location"/>
+<button onclick="tournamentname()">send</button>
+<br></br>
+<input id="inputteam1" type="text" placeholder="batting team"/>
+<input id="inputteam2" type="text" placeholder="balling team"/>
+<button onclick="teamname()">send</button>
+<br></br>
+<input id="inputbreakingnews" type="text" placeholder="breaking news"/>
+<button onclick="breakingnews()">send</button>
+
+
+
+
+
+
+    <script>
+        let run=0;
+        let totalrun=0;
+        let totalball=0;
+        let totalover=0;
+        let totalwicket=0;
+        let runrate =0;
+
+        function runCalc(run,ball){
+           totalrun += run;
+           totalball += ball;
+           if(totalball==6){
+               totalover +=1;
+               totalball =0;
+            }
+            if(totalover<1){
+                runrate = parseFloat(totalrun/totalball).toFixed(1);
+            }else{
+                runrate = parseFloat(totalrun/totalover).toFixed(1);
+            }
+           
+            document.getElementById("runrate").innerHTML = runrate;
+        document.getElementById("totalover").innerHTML = totalover;
+           document.getElementById("totalrun").innerHTML = totalrun;
+           document.getElementById("totalball").innerHTML = totalball;
+
+        } 
+
+        function totalWicket(){
+            totalwicket +=1;
+            document.getElementById("totalwicket").innerHTML = totalwicket;
+        }
+
+        function teamname(){
+        document.getElementById("team1").innerHTML =document.getElementById("inputteam1").value;
+        document.getElementById("team2").innerHTML =document.getElementById("inputteam2").value;
+
+        }
+
+        function tournamentname(){
+            document.getElementById("tournamentname").innerHTML =document.getElementById("inputtournamentname").value;
+        document.getElementById("tournamentlocation").innerHTML =document.getElementById("inputtournamentlocation").value;
+        }
+
+        function breakingnews(){
+            document.getElementById("breakingnews").innerHTML =document.getElementById("inputbreakingnews").value;
+
+        }
+
+    </script>
+</body>
+</html>
